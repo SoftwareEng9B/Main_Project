@@ -3,6 +3,6 @@ const examples = require('../controllers/examples.server.controller.js'),
     router = express.Router()
 
 router.route('/')
-  .get(examples.hello);
+  .get(examples.scrape);
   
 module.exports = router;
