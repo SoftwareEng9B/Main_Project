@@ -1,6 +1,6 @@
 body {
-    color: white;
-    background-color: black;
+    color: #E3E2DF;
+    background-color: #282828;
     font-family: "Verdana", Times, Sans-serif;
   }
   
@@ -16,11 +16,11 @@ input[type="text"]
 }
 
 button {
-color: white;
+color: #E3E2DF;
 width: 100px;
 height: 40px;
 position: relative;
-background-color: blue;
+background-color: #0C0032;
 animation-name: example;
 animation-duration: 4s;
 }
