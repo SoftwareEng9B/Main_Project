@@ -1,6 +1,6 @@
 body {
-    color: white;
-    background-color: black;
+    color: #E3E2DF;
+    background-color: #282828;
     font-family: "Verdana", Times, Sans-serif;
   }
   
@@ -19,7 +19,7 @@ button {
 color: white;
 width: 150px;
 height: 60px;
-position: realtive;
+position: relative;
 background-color: #008CBA;
 animation-name: example;
 animation-duration: 4s;
