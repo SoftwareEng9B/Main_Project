@@ -1,23 +1,30 @@
 import React from 'react';
 import './Home.css';
 
-function Home() {
+
+function Home(props) {
+    const refer = React.createRef();
+    
+    function getUtils(){
+        props.zipUpdate(refer.current.value);
+
+    }
     return (
-        <body>
+        <div>
             <h1>
             Water Cleanliness by Zip Code
             </h1>
-            <form action="search.php">
+            <form onSubmit={event => {event.preventDefault(); getUtils()}}>
             <fieldset>
             <p>
-            <input name="search" type="text" placeholder="Enter Zip..." />
-            <button class="button" type="submit">
+            <input ref = {refer} name="search" type="text" placeholder="Enter Zip..." />
+            <button className="button" type='submit'>
             <span><b>Search</b></span>
             </button>
             </p>
             </fieldset>
             </form>   
-        </body>
+        </div>
     );
 }
 
