@@ -20,7 +20,6 @@ class App extends React.Component{
     this.setState({
       selectedUtility: value
     })
-    console.log(value);
     this.getContams(value);
   };
   utilUpdates2(value){
@@ -39,15 +38,13 @@ class App extends React.Component{
       contaminants: value
     })
   };
-
   async getUtils(zip){
     let utils = await getUtils(zip);
     this.utilUpdates2(utils.utils);
   }
   async getContams(utilId){
     let contaminants = await getContams(utilId);
-    this.contamUpdate(contaminants);
-    console.log(contaminants);
+    this.contamUpdate(contaminants.contams);
   }
 
 render(){
@@ -64,12 +61,11 @@ render(){
           // utilUpdate=
           zipUpdate={this.zipUpdate.bind(this)}
       />
-      <table>
-        <UtilList
-            data={this.state.utilities}
-            utilUpdate={this.utilUpdate.bind(this)}
-        />
-      </table>
+      <UtilList
+          data={this.state.utilities}
+          utilUpdate={this.utilUpdate.bind(this)}
+          contams={this.state.contaminants}          
+      />
     </div>
   );
 }

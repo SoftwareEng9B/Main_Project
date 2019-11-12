@@ -1,22 +1,34 @@
 import React from 'react';
 
 function UtilList(props) {
-const refer = React.createRef();
-	const { data, utilUpdate } = props;
+
+	const { data, utilUpdate, contams } = props;
+	const refer = React.createRef();
+
 	function utilsContam(){
 		console.log(refer.current)
-		utilUpdate(refer.current.key);	
+		utilUpdate(refer.current.value);	
 	}
+
 	const utilList = data.map(directory => {
 		return (
-			<div type="button" ref = {refer} key={directory.link} onClick={utilsContam}>
-				<td>{directory.name} </td>
-			</div>
-		
+			<input type="button" ref={refer} key={directory.link} value={directory.link} onClick={utilsContam}/>		
 		);
 	});
 
-	return <tbody>{utilList}</tbody>;
+	const contamsList = contams.map(contam => {
+		return (
+			<div>{contam}</div>
+		);
+	});
+
+	return(
+		<div>
+			<div>{utilList}</div>
+			{contamsList}
+		</div>
+
+	);
 	
 }
 export default UtilList;
