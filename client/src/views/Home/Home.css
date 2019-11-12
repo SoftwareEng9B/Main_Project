@@ -16,10 +16,10 @@ input[type="text"]
 }
 
 button {
-color: white;
+color: #FFFFFF;
 width: 150px;
 height: 60px;
-position: realtive;
+position: relative;
 background-color: #008CBA;
 animation-name: example;
 animation-duration: 4s;

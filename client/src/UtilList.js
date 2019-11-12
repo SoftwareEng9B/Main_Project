@@ -1,12 +1,17 @@
 import React from 'react';
 
 function UtilList(props) {
-	const { data } = props;
+const refer = React.createRef();
+	const { data, utilUpdate } = props;
+	function utilsContam(){
+		console.log(refer.current)
+		utilUpdate(refer.current.key);	
+	}
 	const utilList = data.map(directory => {
 		return (
-			<button key={directory.link} >
+			<div type="button" ref = {refer} key={directory.link} onClick={utilsContam}>
 				<td>{directory.name} </td>
-			</button>
+			</div>
 		
 		);
 	});

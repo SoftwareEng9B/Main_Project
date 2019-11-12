@@ -5,16 +5,14 @@ import Home from "./views/Home/Home";
 import { getUtils, getContams } from './scraper';
 import UtilList from './UtilList';
 
-
-
-
 class App extends React.Component{
   constructor(props){
     super(props);
     this.state = {
       zipCode: 0,
       selectedUtility: 0,
-      utilities: [] 
+      utilities: [],
+      contaminants: [] 
     };
   }
 
@@ -22,6 +20,8 @@ class App extends React.Component{
     this.setState({
       selectedUtility: value
     })
+    console.log(value);
+    this.getContams(value);
   };
   utilUpdates2(value){
     this.setState({
@@ -34,10 +34,20 @@ class App extends React.Component{
     })
     this.getUtils(value);
   };
+  contamUpdate(value){
+    this.setState({
+      contaminants: value
+    })
+  };
 
   async getUtils(zip){
     let utils = await getUtils(zip);
     this.utilUpdates2(utils.utils);
+  }
+  async getContams(utilId){
+    let contaminants = await getContams(utilId);
+    this.contamUpdate(contaminants);
+    console.log(contaminants);
   }
 
 render(){
@@ -57,6 +67,7 @@ render(){
       <table>
         <UtilList
             data={this.state.utilities}
+            utilUpdate={this.utilUpdate.bind(this)}
         />
       </table>
     </div>
