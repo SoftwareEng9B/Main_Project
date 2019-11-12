@@ -1,8 +1,8 @@
 import React from 'react';
-import { Route, Switch, Redirect  } from 'react-router-dom';
-import Home from "./views/Home/Home"
+// import { Route, Switch, Redirect  } from 'react-router-dom';
+import Home from "./views/Home/Home";
 // import NotFound from "./views/NotFound"
-import scrape from './scraper'
+import { getUtils, getContams } from './scraper';
 import UtilList from './UtilList';
 
 
@@ -36,10 +36,8 @@ class App extends React.Component{
   };
 
   async getUtils(zip){
-    let utils = await scrape.getUtils(zip);
-    console.log(utils);
-    this.utilUpdates2(utils);
-
+    let utils = await getUtils(zip);
+    this.utilUpdates2(utils.utils);
   }
 
 render(){
@@ -56,9 +54,11 @@ render(){
           // utilUpdate=
           zipUpdate={this.zipUpdate.bind(this)}
       />
-      <UtilList
-          data={this.state.utilities}
-      />
+      <table>
+        <UtilList
+            data={this.state.utilities}
+        />
+      </table>
     </div>
   );
 }

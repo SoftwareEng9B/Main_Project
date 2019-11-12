@@ -1,6 +1,5 @@
 import React from 'react';
 import './Home.css';
-import scrape from '../../scraper';
 
 
 function Home(props) {

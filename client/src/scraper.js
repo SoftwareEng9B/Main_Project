@@ -2,16 +2,24 @@ const cheerio = require("cheerio");
 const axios = require("axios");
 
 let featuredUtil = "";
-const utils = new Set();
-const contams = new Set();
 
 const fetchData = async (siteURL) => {
-  const result = await axios.get(siteURL);
+  const proxyurl = "https://cors-anywhere.herokuapp.com/";
+  const result = await axios.get(proxyurl+siteURL,{
+    // crossdomain: true,
+    // method: 'GET',
+    // mode: 'no-cors',
+    // headers: {
+    //   'Access-Control-Allow-Origin': 'http://localhost:5000',
+    //   'Content-Type': 'application/json',
+    // }
+  });
   return cheerio.load(result.data);
 };
 
-exports.getUtils = async (zip) => {
-    const utilsURL = "https://www.ewg.org/tapwater/search-results.php?zip5="+zip+"&searchtype=zip";
+export async function getUtils(zip) {
+  const utils = new Set();
+  const utilsURL = "https://www.ewg.org/tapwater/search-results.php?zip5="+zip+"&searchtype=zip";
   const $ = await fetchData(utilsURL);  
 
   $(".search-results-table a").each((index, element) => {
@@ -34,7 +42,8 @@ exports.getUtils = async (zip) => {
   };
 };
 
-exports.getContams = async (utilID) => {
+export async function getContams(utilID){
+  const contams = new Set();
     const contamsURL = "https://www.ewg.org/tapwater/"+utilID;
   const $ = await fetchData(contamsURL);
 
@@ -49,3 +58,5 @@ exports.getContams = async (utilID) => {
     contams: [...contams].sort(),
   };
 };
+
+export default getUtils;
