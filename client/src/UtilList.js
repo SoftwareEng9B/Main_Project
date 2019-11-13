@@ -2,27 +2,19 @@ import React from 'react';
 
 function UtilList(props) {
 
-	const { data, utilUpdate, contams } = props;
-	const refer = React.createRef();
+	const { utils, contams, zipcode, selectedUtil, selectedUtilUpdate } = props;
 
-	function utilsContam(){
-		console.log(refer.current)
-		// utilUpdate(refer.current.value);	
-	}
-
-	const utilList = data.map(directory => {
+	const utilList = utils.map(util => {
 		return (
-			// <input type="button" ref={refer} key={directory.link} value={directory.name} onClick={utilsContam}/>
-			<tr key={directory.link}>
-					{/* <td>{directory.name} </td> */}
-					<td onClick={()=> utilUpdate(directory.link)}> 
-						{directory.name}
-					</td>
+			<tr key={util.link}>
+				<td onClick={()=> selectedUtilUpdate(util)}> 
+					{util.name}
+				</td>
 			</tr>
 		);
 	});
 
-	const contamsList = contams.map(contam => {
+	const contamList = contams.map(contam => {
 		return (
 			<div>{contam}</div>
 		);
@@ -30,15 +22,15 @@ function UtilList(props) {
 
 	return(
 		<div>
-			<h3>Utilies</h3>
+			<h3>Utilities - {zipcode} :</h3>
 			<table>
 				<tbody>{utilList}</tbody>
 			</table>
-			<h3>Contaminents at selected Utility</h3>
-			{contamsList}
+			<h3>Contaminents - {selectedUtil.name} :</h3>
+			{contamList}
 		</div>
 
-	);
-	
+	);	
 }
+
 export default UtilList;

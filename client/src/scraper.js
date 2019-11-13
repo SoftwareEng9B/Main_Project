@@ -44,7 +44,7 @@ export async function getUtils(zip) {
 
 export async function getContams(utilID){
   const contams = new Set();
-    const contamsURL = "https://www.ewg.org/tapwater/"+utilID;
+  const contamsURL = "https://www.ewg.org/tapwater/"+utilID;
   const $ = await fetchData(contamsURL);
 
   $(".filter-table tbody tr td").each((index, element) => {
