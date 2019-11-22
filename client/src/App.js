@@ -2,8 +2,12 @@ import React from 'react';
 import Home from "./views/Home/Home";
 import UtilList from './UtilList';
 import { getUtils, getContams } from './scraper';
+import SimpleMap from './SimpleMap';
 // import { Route, Switch, Redirect  } from 'react-router-dom';
 // import NotFound from "./views/NotFound"
+const googleMapsClient = require('@google/maps').createClient({
+  key: 'AIzaSyAw6nNDn_HeWc1PVvTcynfEufYbgTtv004'
+});
 
 class App extends React.Component{
 
@@ -13,12 +17,14 @@ class App extends React.Component{
       zipcode: null,
       selectedUtil: {},
       utils: [],
-      contams: [] 
+      contams: [],
+      zipCoords: null
     };
   }
 
   async zipcodeUpdate(value){    
     let utilData = await getUtils(value);
+    this.zipCoordsUpdate(value);
     this.setState({
       zipcode: value,
       selectedUtil: {},
@@ -35,12 +41,26 @@ class App extends React.Component{
     })
   };
 
+  zipCoordsUpdate(value){
+    // Geocode an address.
+    googleMapsClient.geocode({
+      address: value
+    }, function(err, response) {
+      if (!err) {
+        this.setState({
+          zipCoords: response.json.results[0].geometry.location
+        });
+      }
+    }.bind(this));
+  }
+
   render(){
     return (
       <div>      
         <Home
             zipcodeUpdate={this.zipcodeUpdate.bind(this)}
         />
+        <SimpleMap zipcode={this.state.zipcode} zipCoords={this.state.zipCoords}/>      
         <UtilList
             utils={this.state.utils}
             contams={this.state.contams}
