@@ -50,7 +50,7 @@ class PythonOrgSearch(unittest.TestCase):
         elem = driver.find_element_by_name("search")
         elem.send_keys("33124")
         elem.send_keys(Keys.RETURN)
-        all_options = elem.find_element_by_tag("tbody")
+        all_options = elem.find_elements_by_tag_name("tbody")
         for option in all_options:
             print("Value is: %s" % option.get_attribute("tr"))
             option.click()
