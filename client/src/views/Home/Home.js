@@ -10,10 +10,10 @@ function Home(props) {
     }
 
     return (
-        <div>
-            <h1>
-                Water Cleanliness by Zip Code
-            </h1>
+        <div> 
+            <div class="jumbotron vertical-center">
+                <h1>Water Cleanliness by Zip Code</h1>
+            </div>
             <form onSubmit={event => {event.preventDefault(); zipcodeUpdate()}}>
                 <fieldset>
                     <p>
