@@ -1,0 +1,5 @@
+For front end:
+- pip install selenium
+- download proper driver for interaction
+  - I got the geckodriver
+- Set PATH variable to contain geckodriver
