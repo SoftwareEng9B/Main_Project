@@ -6,7 +6,8 @@ import SimpleMap from './SimpleMap';
 // import { Route, Switch, Redirect  } from 'react-router-dom';
 // import NotFound from "./views/NotFound"
 const googleMapsClient = require('@google/maps').createClient({
-  key: require('./config').GOOGLE_MAPS_CLIENT_KEY
+  key: ENV['GOOGLE_MAPS_CLIENT_KEY']
+  // key: require('./config').GOOGLE_MAPS_CLIENT_KEY
 });
 
 class App extends React.Component{
