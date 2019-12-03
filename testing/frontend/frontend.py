@@ -103,6 +103,15 @@ class PythonOrgSearch(unittest.TestCase):
         elem.send_keys(Keys.RETURN)
         assert "No results found." not in driver.page_source
 
+    def test_security(self):
+        driver = self.driver
+        driver.get("https://powerful-basin-62197.herokuapp.com/Home")
+        self.assertIn("React App", driver.title)
+        elem = driver.find_element_by_name("search")
+        elem.send_keys("<body onload=alert('test1')>")
+        elem.send_keys(Keys.RETURN)
+        assert "No results found." not in driver.page_source
+        
     def tearDown(self):
         self.driver.close()
 
