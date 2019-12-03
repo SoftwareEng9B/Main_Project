@@ -1,19 +1,20 @@
 /*Note about model test
-  This is not actually testing how content gets saved in your database or not. 
-  It is testing that you model works. If you deleted your database this would still work. 
-  If you ran this with the code provided in the assignment it would still pass most tests because 
-  you have empty constructors.
+  Tests whether or not the model for fetching data gets the correct values
+  
+  
 
-  Note: It may actually run initially but save garbage in your database that will then cause
-  other issues later. So delete your database so 
-  you can start clean once you complete the  listings.server.model.js file 
+var expect = require('chai').expect;
+var numbers = [1, 2, 3, 4, 5];
+
+expect(numbers).to.be.an('array').that.includes(2);
+expect(numbers).to.have.lengthOf(5);
 
 
   */
 
 var should = require('should'), 
-    mongoose = require('mongoose'), 
-    Listing = require('../models/listings.server.model'), 
+    companies = require('../models/listings.server.model'),
+    ,
     config = require('../config/config');
 
 var listing, id, latitude, longitude;
@@ -24,23 +25,21 @@ listing =  {
   address: "1545 W University Ave, Gainesville, FL 32603, United States"
 }
 
-describe('Listing Schema Unit Tests', function() {
+describe('Water Cleanliness Zip Codes Test', function() {
 
   before(function(done) {
+    //connect to test items
     mongoose.connect(config.db.uri, { useNewUrlParser: true });
-    mongoose.set('useCreateIndex', true);
-    mongoose.set('useFindAndModify', false);
     done();
   });
 
-  describe('Saving to database', function() {
+  describe('Results are Valid', function() {
     /*
-      Mocha's default timeout for tests is 2000ms. To ensure that the tests do not fail 
-      prematurely, we can increase the timeout setting with the method this.timeout()
+      Here we basically compare the results from EWS to the results from our app
      */
     this.timeout(10000);
 
-    it('saves properly when code and name provided', function(done){
+    it('returns correct utilities', function(done){
       new Listing({
         name: listing.name, 
         code: listing.code
@@ -51,7 +50,7 @@ describe('Listing Schema Unit Tests', function() {
       });
     });
 
-    it('saves properly when all three properties provided', function(done){
+    it('returns correct contaminants', function(done){
       new Listing(listing).save(function(err, listing){
         should.not.exist(err);
         id = listing._id;
@@ -59,26 +58,9 @@ describe('Listing Schema Unit Tests', function() {
       });
     });
 
-    it('throws an error when name not provided', function(done){
-      new Listing({
-        code: listing.code
-      }).save(function(err){
-        should.exist(err);
-        done();
-      })
-    });
-
-    it('throws an error when code not provided', function(done){
-      new Listing({
-        name: listing.name
-      }).save(function(err){
-        should.exist(err);
-        done();
-      })
-    });
-
   });
 
+  //Clear search after each test
   afterEach(function(done) {
     if(id) {
       Listing.deleteOne({ _id: id }).exec(function() {
