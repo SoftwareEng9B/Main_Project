@@ -5,4 +5,4 @@
 
 <h1>For back-end:</h1>
 1. npm i --global mocha</br>
-2. npm i --save-dev chai</br>
+2. npm i --save-dev should</br>
