@@ -1,74 +1,48 @@
-/*Note about model test
-  Tests whether or not the model for fetching data gets the correct values
-  
-  
-
-var expect = require('chai').expect;
-var numbers = [1, 2, 3, 4, 5];
-
-expect(numbers).to.be.an('array').that.includes(2);
-expect(numbers).to.have.lengthOf(5);
-
-
-  */
+/*
+Note about model test:
+Tests whether or not the model for fetching data gets the correct values
+*/
 
 var should = require('should'), 
-    companies = require('../models/listings.server.model'),
-    ,
+    utilities = require('../client/src/App.js'),
+    contaminents = require('../client/src/index.js'),
     config = require('../config/config');
 
-var listing, id, latitude, longitude;
+var utilities, contaminents;
 
-listing =  {
-  code: "LBWEST", 
-  name: "Library West", 
-  address: "1545 W University Ave, Gainesville, FL 32603, United States"
+//Value to change for different cases to compare to EWS
+utilities =  {
+  zip:"32608", //Zip code entered 
+  name: "Gainesville Regional Utilities (GRU) - Murphree WTP", //Name of Utilities Companu
 }
 
 describe('Water Cleanliness Zip Codes Test', function() {
 
-  before(function(done) {
-    //connect to test items
-    mongoose.connect(config.db.uri, { useNewUrlParser: true });
-    done();
-  });
-
   describe('Results are Valid', function() {
-    /*
-      Here we basically compare the results from EWS to the results from our app
-     */
+    //Here we basically compare the results from EWS to the results from our app
+    
     this.timeout(10000);
 
-    it('returns correct utilities', function(done){
-      new Listing({
-        name: listing.name, 
-        code: listing.code
-      }).save(function(err, listing){
-        should.not.exist(err);
-        id = listing._id;
-        done();
-      });
-    });
+    it('should return correct utilities', function() {
+	  expect(utilities).to.be.an('array').that.includes('Arredondo Estates'); //Random value for control
+	  expect(utilities).to.have.lengthOf(15); //Exact length
+	  done();
+	});
 
+    //Testing out contaminants for utility specified
     it('returns correct contaminants', function(done){
-      new Listing(listing).save(function(err, listing){
-        should.not.exist(err);
-        id = listing._id;
-        done();
-      });
+      expect(contaminants).to.be.an('array').that.includes('Flouride'); //Random value for control
+	  expect(contaminants).to.have.lengthOf(8); //Exact length
+	  done();
     });
 
   });
 
   //Clear search after each test
   afterEach(function(done) {
-    if(id) {
-      Listing.deleteOne({ _id: id }).exec(function() {
-        id = null;
-        done();
-      });
-    } else {
-      done();
-    }
+  	utilities.zip = NULL;
+  	utilities.name = NULL;
+  	function(utilities);
+  	done();
   });
 });
