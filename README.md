@@ -9,8 +9,6 @@ Google-
 Google maps, 
 Geocoding
 
-![](1531x906.png.8e0f13dfa9d54a4dac564df051801d3f.png)
-
 ## Code used as a template
 https://github.com/google-map-react/google-map-react
 
