@@ -6,4 +6,6 @@ Google-
 Google maps, 
 Geocoding
 
+## Code used as a template
+https://github.com/google-map-react/google-map-react
 
